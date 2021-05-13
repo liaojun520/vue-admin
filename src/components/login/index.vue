@@ -48,15 +48,10 @@
       <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">登录</el-button>
 
       <div style="position:relative">
-        <div class="tips">
-          <span>Username : admin</span>
-          <span>Password : 111111</span>
+        <div class="tips" v-for="item in userList" :key="item._id">
+          <span>账号 : {{item.username}}</span>
+          <span>密码 : {{item.password}}</span>
         </div>
-        <div class="tips">
-          <span style="margin-right:18px;">Username : editor</span>
-          <span>Password : 222222</span>
-        </div>
-
         <el-button class="thirdparty-button" type="primary" @click="showDialog=true">
          联系我们
         </el-button>
@@ -76,7 +71,7 @@
 <script>
 import { validUsername } from '@/utils'
 import { getToken, setToken, removeToken } from '@/utils/auth'
-import {login} from '@/ajax/user'
+import {login,userList} from '@/ajax/user'
 export default {
   name: 'Login',
   data() {
@@ -108,7 +103,8 @@ export default {
       loading: false,
       showDialog: false,
       redirect: undefined,
-      otherQuery: {}
+      otherQuery: {},
+      userList:[]
     }
   },
   watch: {
@@ -129,8 +125,16 @@ export default {
     } else if (this.loginForm.password === '') {
       this.$refs.password.focus()
     }
+    this.userListFUN();
   },
   methods: {
+    userListFUN(){
+      userList().then(res=>{
+        if(res.code=='0'){
+          this.userList = res.data
+        }
+      })
+    },
     checkCapslock(e) {
       const { key } = e
       this.capsTooltip = key && key.length === 1 && (key >= 'A' && key <= 'Z')
