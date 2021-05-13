@@ -44,7 +44,7 @@ service.interceptors.response.use(
           type: 'warning'
         }).then(() => {
           store.dispatch('user/resetToken').then(() => { //清空Token
-            location.reload() //刷新 路由首位到 login页面
+            location.reload() //刷新 路由守卫到 login页面  next(`/login?redirect=${to.path}`)
           })
         })
       }

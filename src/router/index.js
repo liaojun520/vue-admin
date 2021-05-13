@@ -94,6 +94,22 @@ export const routes = [
       icon: 'smile'
     }
   },
+  {
+    path: '/check_login',
+    component: Layout,
+    name:'check_login',
+    children:[
+      {
+        path:'check_login_api',
+        meta: {
+          title: '测试登录失效',
+          icon: 'smile',
+        },
+        name:'check_login_api',
+        component: () => import('@/views/check_login/index'),
+      }
+    ]
+  },
   { path: '*', redirect: '/404', hidden: true }
   
 ]

@@ -153,9 +153,7 @@ export default {
           login({ username: username.trim(), password: password }).then(res=>{
               if(res.code=="0"){
                 this.$store.commit('user/SET_TOKEN',res.data)
-                setToken(res.data);
                 this.$router.push({ path: this.redirect || '/', query: this.otherQuery })
-                console.log('执行不执行')
               }else{
                   this.$message.error(res.message)
                   

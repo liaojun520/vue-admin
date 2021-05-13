@@ -13,7 +13,7 @@
             <span style="display:block;">修改密码</span>
           </el-dropdown-item>
           <el-dropdown-item divided>
-            <span style="display:block;">退出登录</span>
+            <span style="display:block;" @click="logout">退出登录</span>
           </el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
@@ -21,8 +21,19 @@
 </template>
 
 <script>
+import {removeToken} from '@/utils/auth'
 export default {
 name:'logOut',
+methods: {
+  logout(){
+     //清空所有缓存
+     sessionStorage.clear();
+     removeToken(); //清空token信息
+    //  window.location.reload();   //全局路由守卫会重定向   next(`/login?redirect=${to.path}`)
+    // 退出登陆不需要重定向
+    this.$router.push('/login');
+  }
+},
 }
 </script>
 

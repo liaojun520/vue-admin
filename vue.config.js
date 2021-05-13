@@ -40,12 +40,13 @@ module.exports = {
     lintOnSave: process.env.NODE_ENV !== 'production', //dev false  pro true
     // 如果你不需要生产环境的 CSS的 source map，可以将其设置为 false 以加速生产环境构建
     productionSourceMap: false,
-    
+    lintOnSave: false,  // 取消 eslint-loader 校验警告 （比如说引入了没调用，会出现警告）
     devServer: {
       //开发版本端口号
       port: port,
       // 是否默认自动开启在浏览器中打开   
       open: false,
+      hot: true,  // 解决：vue本地项目 代码保存，浏览器不能自动更新
       //如果编译失败 浏览器 overlay 同时显示警告和错误
       overlay: {
         warnings: false, //true
