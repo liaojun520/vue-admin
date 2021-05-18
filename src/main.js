@@ -27,14 +27,20 @@ Router.prototype.push = function push(location) {
   return originalPush.call(this, location).catch(err => err)
 }
 
+import XLSX from 'xlsx'
+Vue.prototype.$XLSX = XLSX
+
 
 
 
 
 Vue.config.productionTip = false
 
-new Vue({
+ const vue = new Vue({
   router,
   store,
   render: h => h(App)
 }).$mount('#app')
+
+
+export default vue

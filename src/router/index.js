@@ -33,12 +33,13 @@ export const routes = [
   {
     path: '/test',
     component: Layout,
+    meta: { title: '测试', icon: 'home'},
     children: [
       {
-        path: 'index',
-        component: () => import('@/views/test/index.vue'),
-        name: 'index',
-        meta: { title: '测试', icon: 'home'}
+        path: 'excel',
+        component: () => import('@/views/test/excel.vue'),
+        name: 'test_excel',
+        meta: { title: 'excel导出'}
       }
     ]
   },

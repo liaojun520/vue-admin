@@ -36,7 +36,7 @@ export default {
      }
  },
  mounted() {
-   console.log(this.routesAll,'总路由')
+  //  console.log(this.routesAll,'总路由')
  },
  computed:{
     ...mapState({
