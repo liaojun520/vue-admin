@@ -1,5 +1,7 @@
 <template>
-  <h5>test页面</h5>
+  <div>
+      <h5>b</h5>
+  </div>
 </template>
 
 <script>

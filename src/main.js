@@ -19,8 +19,13 @@ import '@/style/index.scss'
 /**icon */
 import '@/icons/index.js'
 
+//处理异常  vue-router.esm.js?8c4f:2065 Uncaught (in promise) Error: Navigation cancelled from "/login?redirect=%2Fhome" to "/home" with a new navigation.
+import Router from 'vue-router'
 
-
+const originalPush = Router.prototype.push
+Router.prototype.push = function push(location) {
+  return originalPush.call(this, location).catch(err => err)
+}
 
 
 

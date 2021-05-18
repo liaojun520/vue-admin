@@ -14,7 +14,7 @@
         :collapse="isCollapse"
         :collapse-transition="false"
         >
-        <SiderItem v-for="item in routes" :key="item.path" :item="item" :base-path="item.path"/>
+        <SiderItem v-for="item in routesAll" :key="item.path" :item="item" :base-path="item.path"/>
      </el-menu>    
     </el-scrollbar>
   </div>
@@ -35,10 +35,17 @@ export default {
          routes,
      }
  },
+ mounted() {
+   console.log(this.routesAll,'总路由')
+ },
  computed:{
     ...mapState({
       sidebar: state => state.app.sidebar,
     }),
+    ...mapGetters(['menu']),    //动态路由 
+    routesAll(){
+     return [...routes,...this.menu] //静态路由 动态路由  合并
+    },
     isCollapse() {
       return !this.sidebar.opened;
     },

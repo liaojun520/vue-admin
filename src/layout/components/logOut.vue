@@ -50,6 +50,7 @@
 <script>
 import {getToken,removeToken} from '@/utils/auth'
 import {getInfo,change_password} from '@/ajax/user'
+import {resetRouter} from '@/router'
 export default {
 name:'logOut',
 data() {
@@ -90,6 +91,9 @@ methods: {
      removeToken(); //清空token信息
     //  window.location.reload();   //全局路由守卫会重定向   next(`/login?redirect=${to.path}`)
     // 退出登陆不需要重定向
+    // 必须清空路由vuex 动态路由
+    this.$store.commit('route/GET_MENU',[])
+    resetRouter();
     this.$router.push('/login');
   },
   commitFUN(form){

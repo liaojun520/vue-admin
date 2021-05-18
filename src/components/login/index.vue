@@ -156,7 +156,7 @@ export default {
          const { username, password } = this.loginForm
           login({ username: username.trim(), password: password }).then(res=>{
               if(res.code=="0"){
-                this.$store.commit('user/SET_TOKEN',res.data)
+                this.$store.commit('user/SET_TOKEN',res.data)  //一定要先存token
                 this.$router.push({ path: this.redirect || '/', query: this.otherQuery })
               }else{
                   this.$message.error(res.message)
