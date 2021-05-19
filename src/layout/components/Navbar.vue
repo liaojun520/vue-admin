@@ -4,6 +4,8 @@
     <div class="navbutton" @click="toggleClick">
         <svg-icon class="navbutton" :class="{'navActive':!sidebar.opened}" class-name="navbutton-icon" icon-class="navbutton" />
     </div>
+    <!-- 导航条 -->
+    <navbarList/>
     <logOut/>
   </div>
 </template>
@@ -11,10 +13,12 @@
 <script>
 import {mapState,mapGetters} from 'vuex'
 import logOut from './logOut'
+import navbarList from '@/components/navbar_list'
 export default {
  name:'Navbar',
  components:{
- logOut
+ logOut,
+ navbarList
  },
  data() {
      return {
@@ -47,9 +51,9 @@ export default {
     z-index:999;
     border-bottom: 1px solid #e6e6e6;
     background-color:#ffffff;
-    justify-content: space-between;
+    // justify-content: space-between;
     box-sizing: border-box;
-    transition:all 0ms;
+    transition:all 0s;
     .navbutton{
         position: relative;
         width:30px;

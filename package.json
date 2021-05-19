@@ -20,6 +20,7 @@
     "mockjs": "^1.1.0",
     "moment": "^2.29.1",
     "nprogress": "^0.2.0",
+    "path-to-regexp": "^6.2.0",
     "qs": "^6.10.1",
     "sass": "^1.32.8",
     "svg-sprite-loader": "^6.0.5",
@@ -30,6 +31,7 @@
     "xlsx": "^0.17.0"
   },
   "devDependencies": {
+    "@types/path-to-regexp": "^1.7.0",
     "@vue/cli-plugin-babel": "~4.5.0",
     "@vue/cli-plugin-eslint": "~4.5.0",
     "@vue/cli-plugin-router": "~4.5.0",

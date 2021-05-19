@@ -10,6 +10,9 @@ import Layout from '@/layout'
  *  parent 携带 meta  children个数为1  或者 children个数大于1  多菜单路由
  *  无children视为非菜单路由
  */
+// 多菜单路由 父级路由 可以重定向到第一个子路由  redirect('path'+"/"+children[0].path)
+// redirect:'noRedirect' 导航面包屑 不支持跳转
+// meta:{breadcrumb:false} || 不存在meta || 不存在meta.name 该路由不在导航面包屑展示 
 export const routes = [
   {
     path: '/login',
@@ -34,12 +37,19 @@ export const routes = [
     path: '/test',
     component: Layout,
     meta: { title: '测试', icon: 'home'},
+    redirect:'/test/excel',
     children: [
       {
         path: 'excel',
         component: () => import('@/views/test/excel.vue'),
         name: 'test_excel',
         meta: { title: 'excel导出'}
+      },
+      {
+        path: 'excel2',
+        component: () => import('@/views/test/excel.vue'),
+        name: 'test_excel2',
+        meta: { title: 'excel导出2'}
       }
     ]
   },
@@ -63,12 +73,14 @@ export const routes = [
       title: 'demo',
       icon: 'smile'
     },
+    redirect:'/demo/d1',
     children: [
       {
         path: 'd1',
-        component: () => import('@/views/home/index'),
+        component:() => import('@/views/home/index'),
         name: 'demo1',
         meta: { title: 'demo1', icon: 'smile'},
+        redirect:'/demo/d1/c1',
         // hidden:true
         children:[
           {
