@@ -78,7 +78,7 @@ export default {
     isOnlyMenu(){
       return (child = [],parent)=>{
         if(child.length===1){
-          if(parent.meta){
+          if(parent.meta && !parent.meta.noMoreMenu){
             return false;
           } 
           return true;

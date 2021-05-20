@@ -58,3 +58,26 @@ export function getAsyncRoutes(routesList) {
   // 返回处理好且可用的路由数组
   return res
 }
+
+//路由降维方法
+export function filterAffixTags(routes, basePath = '/') {
+    let tags = []
+    routes.forEach(route => {
+      if (route.meta && route.meta.affix) {
+        const tagPath = path.resolve(basePath, route.path)
+        tags.push({
+          fullPath: tagPath,
+          path: tagPath,
+          name: route.name,
+          meta: { ...route.meta }
+        })
+      }
+      if (route.children) {
+        const tempTags = this.filterAffixTags(route.children, route.path)
+        if (tempTags.length >= 1) {
+          tags = [...tags, ...tempTags]
+        }
+      }
+    })
+    return tags
+  }

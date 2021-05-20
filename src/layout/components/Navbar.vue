@@ -1,11 +1,13 @@
 <template>
-  <div class="navbar">
+  <div class="navbar" :style="{width:width}">
       <!-- 收起按钮 -->
     <div class="navbutton" @click="toggleClick">
         <svg-icon class="navbutton" :class="{'navActive':!sidebar.opened}" class-name="navbutton-icon" icon-class="navbutton" />
     </div>
     <!-- 导航条 -->
-    <navbarList/>
+    <navbarList/> |
+    <!-- 导航历史记录 -->
+    <navLink/>
     <logOut/>
   </div>
 </template>
@@ -14,11 +16,13 @@
 import {mapState,mapGetters} from 'vuex'
 import logOut from './logOut'
 import navbarList from '@/components/navbar_list'
+import navLink from '@/components/nav_link'
 export default {
  name:'Navbar',
  components:{
  logOut,
- navbarList
+ navbarList,
+ navLink
  },
  data() {
      return {
@@ -31,6 +35,15 @@ export default {
       sidebar: state => state.app.sidebar,
       mobile:state =>state.app.mobile
     }),
+    width(){
+      if(this.mobile){
+       return '100%'
+      }
+      if(this.sidebar.opened){
+        return 'calc(100% - 210px)'
+      } 
+      return 'calc(100% - 56px)'
+    }
  },
  methods: {
      toggleClick(){
@@ -46,7 +59,7 @@ export default {
     display: flex;
     align-items: center;
     // 100%不靠谱，都超出了
-    width:100%;
+    // width:100%;
     height:50px;
     z-index:999;
     border-bottom: 1px solid #e6e6e6;

@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import App from './App.vue'
-import router from './router'  //引入router store 先后顺序有区别的
 import store from './store'
+import router from './router'  //引入router store 先后顺序有区别的 一般是先引入store，在store引入router时不会undefined
 import Cookies from 'js-cookie'
 import './permission'
 

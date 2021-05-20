@@ -5,14 +5,15 @@ Vue.use(VueRouter)
 /* Layout */
 import Layout from '@/layout'
 /**
- * 【meta对象 && 含有children个数】 用于区分是否是单菜单路由 
- *  parent 不携带 meta  children个数为1 单菜单路由
- *  parent 携带 meta  children个数为1  或者 children个数大于1  多菜单路由
- *  无children视为非菜单路由
+ * 【meta对象的isMenu属性 && 含有children个数】 用于区分是否是单菜单路由 
+ *  (parent 如果存在meta meta.noMoreMenu = true  children个数为1) || (parent  不携带meta  children个数为1) 单菜单路由
+ *  (parent 携带meta  children个数为1) || (children个数大于1)  多菜单路由
+ *  （无children） || （hidden:true）  非菜单路由
  */
-// 多菜单路由 父级路由 可以重定向到第一个子路由  redirect('path'+"/"+children[0].path)
+// 多菜单路由 父级路由 可以重定向到第一个子路由  redirect:('path'+"/"+children[0].path)
 // redirect:'noRedirect' 导航面包屑 不支持跳转
-// meta:{breadcrumb:false} || 不存在meta || 不存在meta.name 该路由不在导航面包屑展示 
+// meta:{breadcrumb:false} || 不存在meta || 不存在meta.title 该路由不在导航面包屑展示 
+//meta: {affix:true} //固定导航历史记录
 export const routes = [
   {
     path: '/login',
@@ -24,12 +25,13 @@ export const routes = [
     path: '/',
     component: Layout,
     redirect: '/home',
+    meta: {noMoreMenu:true},
     children: [
       {
         path: 'home',
         component: () => import('@/views/home/index'),
         name: 'home',
-        meta: { title: '首页', icon: 'home'}
+        meta: { title: '首页', icon: 'home',affix:true,},
       }
     ]
   },
@@ -47,22 +49,23 @@ export const routes = [
       },
       {
         path: 'excel2',
-        component: () => import('@/views/test/excel.vue'),
+        component: () => import('@/views/test/index.vue'),
         name: 'test_excel2',
-        meta: { title: 'excel导出2'}
+        meta: { title: '测试'}
       }
     ]
   },
   {
     path: '/test1',
     component: Layout,
-    meta: { title: '测试1', icon: 'home'},
+    meta: { title: '测试1', icon: 'home',breadcrumb:false},
+    redirect:'/test1/index1',
     children: [
       {
         path: 'index1',
         component: () => import('@/views/home/index'),
         name: 'index1',
-        meta: { title: '测试1'}
+        meta: { title: '测试1',breadcrumb:false}
       }
     ]
   },

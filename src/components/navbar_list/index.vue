@@ -1,5 +1,5 @@
 <template>
-  <div style="margin-left:10px;">
+  <div class="navbarList" style="margin:0 10px;">
     <el-breadcrumb class="app-breadcrumb" separator="/">
       <transition-group name="breadcrumb">
         <el-breadcrumb-item v-for="(item,index) in levelList" :key="item.path">
@@ -42,7 +42,7 @@ methods: {
       const first = matched[0]
 
       if (!this.isHome(first)) {
-        matched = [{ path: '/home', meta: { title: 'home' }}].concat(matched)
+        matched = [{ path: '/home', meta: { title: '首页' }}].concat(matched)
       }
 
       this.levelList = matched.filter(item => item.meta && item.meta.title && item.meta.breadcrumb !== false)

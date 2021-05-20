@@ -1,11 +1,12 @@
 import Cookies from 'js-cookie'
 import { setRouter, getRouter, removeRouter } from '@/utils/auth'
 import { router_menu } from '@/ajax/routes'
-
+import {routes} from '@/router'
 
 const state = {
-    router: getRouter() || null,
-    menu:[]
+    router: getRouter() || null, //请求的动态路由菜单数据
+    menu:[],  //动态路由
+    routes   //静态路由
 };
 const mutations = {
     GET_ROUTE: (state, data) => {
