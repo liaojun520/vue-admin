@@ -52,6 +52,12 @@ export const routes = [
         component: () => import('@/views/test/index.vue'),
         name: 'test_excel2',
         meta: { title: '测试'}
+      },
+      {
+        path: 'echarts1',
+        component: () => import('@/views/test/echarts1.vue'),
+        name: 'echarts1',
+        meta: { title: 'echarts1'}
       }
     ]
   },

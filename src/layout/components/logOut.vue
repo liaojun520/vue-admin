@@ -87,13 +87,11 @@ watch:{
 methods: {
   logout(){
      //清空所有缓存
-     sessionStorage.clear();
-     removeToken(); //清空token信息
+     this.$store.commit('user/SET_TOKEN',null)
     //  window.location.reload();   //全局路由守卫会重定向   next(`/login?redirect=${to.path}`)
     // 退出登陆不需要重定向
     // 必须清空路由vuex 动态路由
-    this.$store.commit('route/GET_MENU',[])
-    resetRouter();
+    resetRouter(); //防止动态路由重复添加
     this.$router.push('/login');
   },
   commitFUN(form){

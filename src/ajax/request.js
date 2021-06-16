@@ -3,6 +3,7 @@ import { MessageBox, Message } from 'element-ui'
 import store from '@/store'
 import { getToken } from '@/utils/auth'
 import E from '@/easy'
+import {resetRouter} from '@/router'
 const service = axios.create({
   baseURL:E.baseURL,
   timeout: 20000 // request timeout
@@ -44,6 +45,7 @@ service.interceptors.response.use(
           type: 'warning'
         }).then(() => {
           store.dispatch('user/resetToken').then(() => { //清空Token
+            resetRouter()
             location.reload() //刷新 路由守卫到 login页面  next(`/login?redirect=${to.path}`)
           })
         })

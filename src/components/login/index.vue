@@ -72,6 +72,7 @@
 import { validUsername } from '@/utils'
 import { getToken, setToken, removeToken } from '@/utils/auth'
 import {login,userList} from '@/ajax/user'
+import {resetRouter} from '@/router'
 export default {
   name: 'Login',
   data() {
@@ -156,11 +157,12 @@ export default {
          const { username, password } = this.loginForm
           login({ username: username.trim(), password: password }).then(res=>{
               if(res.code=="0"){
+                this.$store.commit('user/SET_TOKEN',null)   //先清空token
+                resetRouter()
                 this.$store.commit('user/SET_TOKEN',res.data)  //一定要先存token
                 this.$router.push({ path: this.redirect || '/', query: this.otherQuery })
               }else{
-                  this.$message.error(res.message)
-                  
+                  this.$message.error(res.message)  
               }
               this.loading = false
           })

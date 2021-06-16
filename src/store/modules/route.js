@@ -10,10 +10,13 @@ const state = {
 };
 const mutations = {
     GET_ROUTE: (state, data) => {
-        state.router = data
-        if (data) { //有token
+        if (data) { //有数据
+            state.router = data
             setRouter(data)  //设置缓存
+            return
         }
+        state.router = null
+        removeRouter()
     },
     GET_MENU:(state, data)=>{
        state.menu = data
@@ -31,10 +34,10 @@ const actions = {
                     return
                 }
                 resolve([]) 
-                removeRouter()
+                commit('GET_ROUTE')
             }).catch(_=>{
                 resolve([]) 
-                removeRouter()
+                commit('GET_ROUTE')
             })
         })
     },

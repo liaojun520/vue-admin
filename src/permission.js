@@ -37,7 +37,7 @@ router.beforeEach(async (to, from, next) => {
        * 每次页面刷新,动态路由清空 vuex数据也清空 重新 挂载动态路由
        */
       let routers = store.state.route.menu || [] //获取动态路由
-      if(!routers || routers.length==0){ //确保 有动态路由数据时 router.addRoute只执行一次！！！
+      if(!routers || routers.length==0){ //没路由时执行，确保 有动态路由数据时 router.addRoute只执行一次！！！
         try {
           let accessRoutes 
           //有请请求的动态路由数据缓存 就取缓存 没有 就 dispatch重新调用接口获取
