@@ -58,6 +58,18 @@ export const routes = [
         component: () => import('@/views/test/echarts1.vue'),
         name: 'echarts1',
         meta: { title: 'echarts1'}
+      },
+      {
+        path: 'editor',
+        component: () => import('@/views/test/Editor.vue'),
+        name: 'editor',
+        meta: { title: 'Editor'}
+      },
+      {
+        path: 'downLoad',
+        component: () => import('@/views/test/downLoad.vue'),
+        name: 'downLoad',
+        meta: { title: 'downLoad'}
       }
     ]
   },
@@ -90,13 +102,14 @@ export const routes = [
         name: 'demo1',
         meta: { title: 'demo1', icon: 'smile'},
         redirect:'/demo/d1/c1',
-        // hidden:true
+        // hidden:true,
         children:[
           {
             path: 'c1',
             component: () => import('@/views/home/index'),
             name: 'c1',
             meta: { title: 'c1'},
+            // hidden:true
           }
         ]
       },
@@ -112,15 +125,26 @@ export const routes = [
     path: '/Routing',
     component: Layout,
     name:'Routing',
+    meta: {
+      title: '路由权限',
+      icon: 'smile'
+    },
     children:[
       {
         path: 'index',
         name:'Routing_index',
+        component:()=>import('@/views/Routing/index.vue'),
+        meta:{
+          title:'权限原理'
+        }
+      },
+      {
+        path: 'btn',
+        name:'btn',
         meta: {
-          title: '路由权限',
-          icon: 'smile'
+          title:'按钮级别权限'
         },
-        component:()=>import('@/views/Routing/index.vue')
+        component:()=>import('@/views/Routing/btn.vue')
       }
     ]
   },

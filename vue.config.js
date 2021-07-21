@@ -1,10 +1,12 @@
 'use strict'
 const path = require('path');
+const CompressionPlugin = require("compression-webpack-plugin");
 
 //安装
 //  npm install uglifyjs-webpack-plugin  生产环境去除console
 //  npm install --save babel-polyfill 
 //  npm i svg-sprite-loader         配置svg-sprite-loader
+//  npm install compression-webpack-plugin --save-dev 开启zip压缩
 
 //文件路径拼接  __dirname 代表当前文件路径      
 function resolve(dir){
@@ -14,16 +16,7 @@ function resolve(dir){
 const isProduction = process.env.NODE_ENV === 'production';
 const port = process.env.port || process.env.npm_config_port || 9000; // dev port
 const name = '后台管理系统' // page title
-//插件cdn
-const cdn = {
-  css: [],
-  js: [
-      'https://cdn.bootcss.com/vue/2.5.17/vue.runtime.min.js',
-      'https://cdn.bootcss.com/vue-router/3.0.1/vue-router.min.js',
-      'https://cdn.bootcss.com/vuex/3.0.1/vuex.min.js',
-      'https://cdn.bootcss.com/axios/0.18.0/axios.min.js',
-  ]
-}
+
 
 module.exports = {
     //基本路径
@@ -67,30 +60,6 @@ module.exports = {
         },
       },
     },
-
-    //公共样式的引入优化   scss less 配置文件  在项目上就不需要引入了直接生效（注意：必须是全局公共样式，一旦配置，全部页面都会作用）
-    // css: {
-    //   modules: true,
-    //   sourceMap: false,
-    //   // css预设器配置项
-    //   loaderOptions: {
-    //       // pass options to less-loader
-    //       less: {
-    //           // 引入全局变量样式, @ 是我们上面configureWebpack配置的绝对路径,执行src目录
-    //           data: `
-    //               @import "@/style/common.less";
-    //           `
-    //       },
-    //       // pass options to sass-loader  同理
-    //       sass: {
-    //         // 引入全局变量样式,@使我们设置的别名,执行src目录
-    //         data: `
-    //             @import "@/style/common.scss";
-    //         `
-    //       }
-    //   },
-    // },
-    //配置了css配置项  三方ui框架样式就会不生效!!! 
     
     chainWebpack: config=>{
       config
@@ -124,14 +93,66 @@ module.exports = {
       config.plugins.delete('prefetch');
       // 移除 preload 插件
       config.plugins.delete('preload');
-      if(isProduction){
-        // 生产环境使用 cdn
-        config.plugin('html')
-        .tap(args => {
-            args[0].cdn = cdn;
-            return args;
-        });
-      }
+
+      // set preserveWhitespace
+      config.module
+      .rule('vue')
+      .use('vue-loader')
+      .loader('vue-loader')
+      .tap(options => {
+        options.compilerOptions.preserveWhitespace = true
+        return options
+      })
+      .end()
+
+      config
+      // https://webpack.js.org/configuration/devtool/#development
+      .when(process.env.NODE_ENV === 'development',
+        config => config.devtool('cheap-source-map')
+      )
+
+      config
+      .when(process.env.NODE_ENV === 'production',
+        config => {
+          config
+            .plugin('ScriptExtHtmlWebpackPlugin')
+            .after('html')
+            .use('script-ext-html-webpack-plugin', [{
+            // `runtime` must same as runtimeChunk name. default is `runtime`
+              inline: /runtime\..*\.js$/
+            }])
+            .end()
+          config
+            .optimization.splitChunks({
+              maxSize: 50000,  
+              chunks: 'all',
+              cacheGroups: {
+                libs: {
+                  name: 'chunk-libs',
+                  test: /[\\/]node_modules[\\/]/,
+                  priority: 10,
+                  chunks: 'initial' // only package third parties that are initially dependent
+                },
+                elementUI: {
+                  name: 'chunk-elementUI', // split elementUI into a single package
+                  priority: 20, // the weight needs to be larger than libs and app or it will be packaged into libs or app
+                  test: /[\\/]node_modules[\\/]_?element-ui(.*)/ // in order to adapt to cnpm
+                },
+                commons: {
+                  name: 'chunk-commons',
+                  test: resolve('src/components'), // can customize your rules
+                  minChunks: 3, //  minimum common number
+                  priority: 5,
+                  reuseExistingChunk: true
+                }
+              }
+            })
+          config.optimization.runtimeChunk('single')
+        }
+      )
+
+
+
     },
 
     //调整 webpack 配置最简单的方式就是在 vue.config.js 中的 configureWebpack 选项提供一个对象：该对象将会被 webpack-merge 合并入最终的 webpack 配置
@@ -151,14 +172,22 @@ module.exports = {
                 parallel: true,
             })
         );
+        
+        //开启zip打包
+        return {
+          plugins: [
+            new CompressionPlugin({
+              algorithm: "gzip",
+              test: /\.(js|css)$/, // 匹配文件名
+              threshold: 10240, // 对超过1M的数据压缩
+              deleteOriginalAssets: false, // 不删除源文件
+              minRatio: 0.8, // 压缩比
+            }),
+          ],
+        };
 
-        // 用cdn方式引入
-        config.externals = {
-          'vue': 'Vue',
-          'vuex': 'Vuex',
-          'vue-router': 'VueRouter',
-          'axios': 'axios'
-        }
+
+
 
       }else{  // 为开发环境修改配置...
 

@@ -19,7 +19,6 @@
     "js-cookie": "^2.2.1",
     "less-loader": "^5.0.0",
     "mockjs": "^1.1.0",
-    "moment": "^2.29.1",
     "nprogress": "^0.2.0",
     "path-to-regexp": "^6.2.0",
     "qs": "^6.10.1",
@@ -39,11 +38,14 @@
     "@vue/cli-plugin-vuex": "~4.5.0",
     "@vue/cli-service": "~4.5.0",
     "babel-eslint": "^10.1.0",
+    "compression-webpack-plugin": "^8.0.1",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.2.2",
     "less": "^3.0.4",
+    "moment": "^2.29.1",
     "sass-loader": "^7.3.1",
-    "vue-template-compiler": "^2.6.11"
+    "vue-template-compiler": "^2.6.11",
+    "wangeditor": "^4.7.5"
   },
   "eslintConfig": {
     "root": true,

@@ -92,7 +92,8 @@ methods: {
     // 退出登陆不需要重定向
     // 必须清空路由vuex 动态路由
     resetRouter(); //防止动态路由重复添加
-    this.$router.push('/login');
+    window.location.reload();   //使用刷新，清空vuex里的动态路由信息
+    // this.$router.push('/login');
   },
   commitFUN(form){
      this.$refs[form].validate((valid) => {

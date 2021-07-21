@@ -4,7 +4,14 @@ import store from './store'
 import router from './router'  //引入router store 先后顺序有区别的 一般是先引入store，在store引入router时不会undefined
 import Cookies from 'js-cookie'
 import './permission'
+import * as filters from "@/filters"
+import './btnPermissions.js';   //引入全局自定义指令   按钮权限
 
+
+/**过滤器 */
+Object.keys(filters).forEach(key => {
+  Vue.filter(key, filters[key])
+})
 
 /**element-ui组件库 */
 import ElementUI from 'element-ui'
