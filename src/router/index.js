@@ -63,7 +63,13 @@ export const routes = [
         path: 'editor',
         component: () => import('@/views/test/Editor.vue'),
         name: 'editor',
-        meta: { title: 'Editor'}
+        meta: { title: '标签富文本'}
+      },
+      {
+        path: 'editorcopy',
+        component: () => import('@/views/test/Editorcopy.vue'),
+        name: 'Editorcopy',
+        meta: { title: '文本emoji富文本'}
       },
       {
         path: 'downLoad',

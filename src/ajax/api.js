@@ -6,6 +6,6 @@ export function check_login(data) {
     return request({
       url: '/user/check_login?'+qs.stringify(data),
       method: 'get',
-    //   params: { data }  --get请求 携带参数方式二    post请求携带参数方式只有一种： data:{...}
+    //   params: { ...data }  --get请求 携带参数方式二    post请求携带参数方式只有一种： data:{...}
     })
   }

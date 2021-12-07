@@ -1,6 +1,6 @@
 <template>
   <div class="app-main">
-    <div ref="echarts" style="width: 600px;height:200px;">
+    <div ref="echarts" style="width: 700px;height:300px;">
        
     </div>
     <p style="display:flex;white-space:nowrap;">echarts图库大全请看：<a href="https://www.makeapie.com/explore.html#sort=rank~timeframe=all~author=all" target="_blank">echart图库大全链接</a></p>
@@ -32,7 +32,7 @@ data() {
       // }]
 
         //背景色
-        backgroundColor: '#394056',  
+        backgroundColor: '#fff',  
         //标题配置项
         title: {          
           top: 20,
@@ -57,9 +57,9 @@ data() {
           top: 20,
           icon: 'rect',
           itemWidth: 14,
-          itemHeight: 5,
+          itemHeight: 2,
           itemGap: 13,
-          data: ['CMCC', 'CTCC', 'CUCC'],
+          data: ['CMCC'],//, 'CTCC', 'CUCC'],
           right: '4%',
           textStyle: {
             fontSize: 12,
@@ -84,12 +84,14 @@ data() {
           },
           data: ['13:00', '13:05', '13:10', '13:15', '13:20', '13:25', '13:30', '13:35', '13:40', '13:45', '13:50', '13:55']
         }],
+        //y轴配置
         yAxis: [{
           type: 'value',
           name: '(%)',
           axisTick: {
             show: false
           },
+          splitNumber:8, //分的个数
           axisLine: {
             lineStyle: {
               color: '#57617B'
@@ -142,79 +144,79 @@ data() {
 
             }
           },
-          data: [220, 182, 191, 134, 150, 120, 110, 125, 145, 122, 165, 122]
+          data: [360, 382, 191, 134, 150, 320, 110, 225, 145, 122, 365, 122]
         }, 
         //第二组数据
-        {
-          name: 'CTCC',
-          type: 'line',
-          smooth: true,
-          symbol: 'circle',
-          symbolSize: 5,
-          showSymbol: false,
-          lineStyle: {
-            normal: {
-              width: 1
-            }
-          },
-          areaStyle: {
-            normal: {
-              color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-                offset: 0,
-                color: 'rgba(0, 136, 212, 0.3)'
-              }, {
-                offset: 0.8,
-                color: 'rgba(0, 136, 212, 0)'
-              }], false),
-              shadowColor: 'rgba(0, 0, 0, 0.1)',
-              shadowBlur: 10
-            }
-          },
-          itemStyle: {
-            normal: {
-              color: 'rgb(0,136,212)',
-              borderColor: 'rgba(0,136,212,0.2)',
-              borderWidth: 12
+        // {
+        //   name: 'CTCC',
+        //   type: 'line',
+        //   smooth: true,
+        //   symbol: 'circle',
+        //   symbolSize: 5,
+        //   showSymbol: false,
+        //   lineStyle: {
+        //     normal: {
+        //       width: 1
+        //     }
+        //   },
+        //   areaStyle: {
+        //     normal: {
+        //       color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+        //         offset: 0,
+        //         color: 'rgba(0, 136, 212, 0.3)'
+        //       }, {
+        //         offset: 0.8,
+        //         color: 'rgba(0, 136, 212, 0)'
+        //       }], false),
+        //       shadowColor: 'rgba(0, 0, 0, 0.1)',
+        //       shadowBlur: 10
+        //     }
+        //   },
+        //   itemStyle: {
+        //     normal: {
+        //       color: 'rgb(0,136,212)',
+        //       borderColor: 'rgba(0,136,212,0.2)',
+        //       borderWidth: 12
 
-            }
-          },
-          data: [120, 110, 125, 145, 122, 165, 122, 220, 182, 191, 134, 150]
-        }, 
+        //     }
+        //   },
+        //   data: [120, 110, 125, 145, 122, 165, 122, 220, 182, 191, 134, 150]
+        // }, 
         // 第三组数据
-        {
-          name: 'CUCC',
-          type: 'line',
-          smooth: true,
-          symbol: 'circle',
-          symbolSize: 5,
-          showSymbol: false,
-          lineStyle: {
-            normal: {
-              width: 1
-            }
-          },
-          areaStyle: {
-            normal: {
-              color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-                offset: 0,
-                color: 'rgba(219, 50, 51, 0.3)'
-              }, {
-                offset: 0.8,
-                color: 'rgba(219, 50, 51, 0)'
-              }], false),
-              shadowColor: 'rgba(0, 0, 0, 0.1)',
-              shadowBlur: 10
-            }
-          },
-          itemStyle: {
-            normal: {
-              color: 'rgb(219,50,51)',
-              borderColor: 'rgba(219,50,51,0.2)',
-              borderWidth: 12
-            }
-          },
-          data: [220, 182, 125, 145, 122, 191, 134, 150, 120, 110, 165, 122]
-        }
+        // {
+        //   name: 'CUCC',
+        //   type: 'line',
+        //   smooth: true,
+        //   symbol: 'circle',
+        //   symbolSize: 5,
+        //   showSymbol: false,
+        //   lineStyle: {
+        //     normal: {
+        //       width: 1
+        //     }
+        //   },
+        //   areaStyle: {
+        //     normal: {
+        //       color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+        //         offset: 0,
+        //         color: 'rgba(219, 50, 51, 0.3)'
+        //       }, {
+        //         offset: 0.8,
+        //         color: 'rgba(219, 50, 51, 0)'
+        //       }], false),
+        //       shadowColor: 'rgba(0, 0, 0, 0.1)',
+        //       shadowBlur: 10
+        //     }
+        //   },
+        //   itemStyle: {
+        //     normal: {
+        //       color: 'rgb(219,50,51)',
+        //       borderColor: 'rgba(219,50,51,0.2)',
+        //       borderWidth: 12
+        //     }
+        //   },
+        //   data: [220, 182, 125, 145, 122, 191, 134, 150, 120, 110, 165, 122]
+        // }
 
         ]
       }
